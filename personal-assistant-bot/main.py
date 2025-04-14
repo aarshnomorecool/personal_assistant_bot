@@ -1,15 +1,14 @@
-# main.py
 
 import requests
 import json
 import os
 from dotenv import load_dotenv
 
-# Load the OpenRouter API key from .env file
+# Loading the OpenRouter API key from .env file
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
 
-# 🔁 Load memory from memory.json
+# Load memory from memory.json
 def load_memory():
     if os.path.exists("memory.json"):
         try:
@@ -19,7 +18,7 @@ def load_memory():
             return {}
     return {}
 
-# 💾 Save memory to memory.json
+# Save memory to memory.json, we will use json
 def save_memory(memory):
     try:
         with open("memory.json", "w") as f:
@@ -27,7 +26,7 @@ def save_memory(memory):
     except Exception as e:
         print(f"Error saving memory: {e}")
 
-# 🤖 Get response from Qwerky-72B (OpenRouter)
+# Get response from Qwerky-72B (OpenRouter)   
 def get_ai_response(user_prompt, memory=None):
     url = "https://openrouter.ai/api/v1/chat/completions"
     headers = {
@@ -67,9 +66,9 @@ def get_ai_response(user_prompt, memory=None):
         return reply["choices"][0]["message"]["content"]
 
     except requests.exceptions.RequestException as e:
-        print("❌ API Error:", e)
+        print(" API Error:", e)
         return "Sorry, I couldn't connect to the AI service."
 
     except Exception as e:
-        print("❌ Unexpected Error:", e)
+        print(" Unexpected Error:", e)
         return "An error occurred while getting a response from the assistant."
